@@ -1,0 +1,29 @@
+build-docker-image:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - cd .meta
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
+    - docker push "$CI_REGISTRY_IMAGE"
+  only:
+    changes:
+      - Dockerfile
+
+validate:
+  stage: test
+  image: registry.gitlab.com/desire.bahbioh/samjava
+  script:
+    - sam validate
+
+deploy-prod:
+  stage: deploy
+  image: registry.gitlab.com/desire.bahbioh/samjava
+  script:
+    - sam build
+    - sam deploy
+  only:
+    refs:
+      - master
