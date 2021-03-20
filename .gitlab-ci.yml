@@ -32,7 +32,7 @@ deploy-prod:
     - aws configure set aws_session_token $TOKEN
     - aws configure set default.region us-east-1
     - sam build
-    - sam deploy
+    - sam deploy --stack-name sam-gitlab-java --s3-bucket dbb-aws-sam-artifacts --capabilities CAPABILITY_IAM --region us-east-1
   only:
     refs:
       - master
