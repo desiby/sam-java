@@ -17,6 +17,7 @@ validate:
   image: registry.gitlab.com/desire.bahbioh/samjava
   script:
     - sam validate
+     
 
 deploy-prod:
   stage: deploy
