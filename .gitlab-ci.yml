@@ -16,6 +16,10 @@ validate:
   stage: test
   image: registry.gitlab.com/desire.bahbioh/samjava
   script:
+    - export AWS_KEY_ID=$KEY
+    - export AWS_SECRET_ACCESS_KEY=$SECRET
+    - export AWS_SESSION_TOKEN=$TOKEN
+    - export AWS_DEFAULT_REGION=$REGION
     - sam validate
      
 
